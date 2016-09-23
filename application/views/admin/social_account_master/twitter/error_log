@@ -1,0 +1,10 @@
+[13-Jun-2014 19:14:46 Etc/GMT] PHP Parse error:  syntax error, unexpected ',' in /home/mtmarajk/public_html/twitter/index.php on line 21
+[13-Jun-2014 19:15:02 Etc/GMT] PHP Parse error:  syntax error, unexpected ',' in /home/mtmarajk/public_html/twitter/index.php on line 21
+[13-Jun-2014 19:15:03 Etc/GMT] PHP Parse error:  syntax error, unexpected ',' in /home/mtmarajk/public_html/twitter/index.php on line 21
+[13-Jun-2014 19:15:42 Etc/GMT] PHP Parse error:  syntax error, unexpected $end in /home/mtmarajk/public_html/twitter/redirect.php on line 29
+[13-Jun-2014 19:16:05 Etc/GMT] PHP Parse error:  syntax error, unexpected $end in /home/mtmarajk/public_html/twitter/redirect.php on line 29
+[13-Jun-2014 19:17:17 Etc/GMT] PHP Parse error:  syntax error, unexpected $end in /home/mtmarajk/public_html/twitter/callback.php on line 37
+[13-Jun-2014 19:17:28 Etc/GMT] PHP Warning:  Unterminated comment starting line 34 in /home/mtmarajk/public_html/twitter/callback.php on line 34
+[13-Jun-2014 19:17:28 Etc/GMT] PHP Parse error:  syntax error, unexpected $end in /home/mtmarajk/public_html/twitter/callback.php on line 34
+[13-Jun-2014 19:20:13 Etc/GMT] PHP Parse error:  syntax error, unexpected ':', expecting ',' or ';' in /home/mtmarajk/public_html/twitter/index.php on line 23
+[13-Jun-2014 19:44:26 Etc/GMT] PHP Parse error:  syntax error, unexpected '<' in /home/mtmarajk/public_html/twitter/index.php on line 51

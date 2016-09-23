@@ -1,0 +1,188 @@
+<?php
+	/*
+    @Description: Superadmin Model
+    @Author: Mohit Trivedi
+    @Date: 30-08-14
+	*/
+class superadmin_management_model extends CI_Model
+{
+    function __construct()
+    {
+        parent::__construct();
+        $this->table_name = 'login_master';
+    }
+    /*
+        @Description: Check Login is valid or not
+        @Author     : Mohit Trivedi
+        @Input      : Superadmin Email id and Password
+        @Output     : If validate then go to home page else login error
+        @Date       : 30-08-14
+    */  
+    
+    public function check_email($email, $id)
+    {
+			$param_selfold = array('email_id'=>$email);
+            $this->db->select();
+            $this->db->from($this->table_name);
+            $this->db->where($param_selfold);
+			$this->db->where('id !=',$id);
+            $query= $this->db->get();
+		    return $query->result_array();
+	}
+    /*
+        @Description: Function for get Superadmin List (Customer)
+        @Author     : Mohit Trivedi
+        @Input      : Fieldl list(id,name..), match value(id=id,..), condition(and,or),compare type(=,like),count,limit per page, starting row number
+        @Output     : Superadmin details
+        @Date       : 30-08-14
+    */
+   
+    public function get_user($getfields='', $match_values = '', $condition ='', $compare_type = '', $count = '',$num = '',$offset='',$orderby='',$sort='',$where_cond='',$totalrow='')
+    {
+		//pr($where);
+	    $fields =  $getfields ? implode(',', $getfields) : '';
+        $sql = 'SELECT ';
+        
+        $sql .= $fields ? $fields : '*';
+        $sql .= ' FROM '.$this->table_name;
+        $where='';
+        
+        if($match_values)
+        {
+            $keys = array_keys($match_values);
+            $compare_type = $compare_type ? $compare_type : 'like';
+            if($condition!='')
+                $and_or=$condition;
+            else 
+                $and_or = ($compare_type == 'like') ? ' OR ' : ' AND '; 
+          
+            $where = 'WHERE (';
+            switch ($compare_type)
+            {
+                case 'like':
+                    $where .= $keys[0].' '.$compare_type .'"%'.$match_values[$keys[0]].'%" ';
+                    break;
+
+                case '=':
+                default:
+                    $where .= $keys[0].' '.$compare_type .'"'.$match_values[$keys[0]].'" ';
+                    break;
+            }
+            $match_values = array_slice($match_values, 1);
+            
+            foreach($match_values as $key=>$value)
+            {                
+                $where .= $and_or.' '.$key.' ';
+                switch ($compare_type)
+                {
+                    case 'like':
+                        $where .= $compare_type .'"%'.$value.'%"';
+                        break;
+                    
+                    case '=':
+                    default:
+                        $where .= $compare_type .'"'.$value.'"';
+                        break;
+                }
+            }
+			
+			$where .= ')';
+			
+			if($where_cond)
+        	{
+				foreach($where_cond as $key=>$value)
+				{   
+					$where .= ' AND ('.$key.' ';
+					$where .= ' = "'.$value.'")';
+				}
+			}
+			
+        }
+        $orderby = ($orderby !='')?' order by '.$orderby.' '.$sort.' ':'';
+        if($offset=="" && $num=="")
+            $sql .= ' '.$where.$orderby;
+        elseif($offset=="")
+            $sql .= ' '.$where.$orderby.' '.'limit '.$num;
+        else
+             $sql .= ' '.$where.$orderby.' '.'limit '.$offset .','.$num;
+        
+        $query = ($count) ? 'SELECT count(*) FROM '.$this->table_name.' '.$where.$orderby : $sql;
+        $query = $this->db->query($query);
+		if(!empty($totalrow))
+			return $query->num_rows();
+		else
+        	return $query->result_array();
+    }
+   
+    /*
+        @Description: Function is for Insert Superadmin details
+        @Author     : Mohit Trivedi
+        @Input      : Superadmin details
+        @Output     : Insert record into DB
+        @Date       : 30-08-14
+    */
+    function insert_record($data)
+    {
+        $this->db->insert($this->table_name,$data);	
+	}
+    /*
+        @Description: Function is for update Superadmin details by Superadmin
+        @Author     : Mohit Trivedi
+        @Input      : Superadmin details
+        @Output     : Update record into db
+        @Date		: 30-08-14
+    */
+    public function update_record($data)
+    {
+        $this->db->where('id',$data['id']);
+        $query = $this->db->update($this->table_name,$data); 
+    }
+    /*
+        @Description: Function for Delete Customer Profile By Superadmin
+        @Author     : Mohit Trivedi
+        @Input      : Superadmin id
+        @Output     : Delete record from db
+        @Date       : 30-08-14
+    */
+    public function delete_record($id)
+    {
+        $this->db->where('id',$id);
+        $this->db->delete($this->table_name);            
+    } 
+
+	/*
+        @Description: Function For pagination
+        @Author     : Mohit Trivedi
+        @Input      : 
+        @Output     : Unique DB Name
+        @Date       : 09-09-14
+    */
+
+	public function getsuperadminpagingid($superadmin_id='')
+	{
+		$this->db->select('*');
+		$this->db->from($this->table_name);
+		$this->db->where('user_type','1');
+		$this->db->order_by('id','desc');
+		$result = $this->db->get()->result_array();
+		$op = 0;
+		if(count($result) > 0)
+		{
+			foreach($result as $key=>$row)
+			{
+				if($row['id'] == $superadmin_id)
+				{
+					$op = $key;
+					$op1 = strlen($op);
+					$op = substr($op,0,$op1-1)*10;
+				}
+			}
+		}
+		
+		return $op;
+	}
+	
+	
+	
+	   
+}

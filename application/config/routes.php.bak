@@ -1,0 +1,286 @@
+<?php
+
+
+if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+
+/*
+| -------------------------------------------------------------------------
+| URI ROUTING
+| -------------------------------------------------------------------------
+| This file lets you re-map URI requests to specific controller functions.
+|
+| Typically there is a one-to-one relationship between a URL string
+| and its corresponding controller class/method. The segments in a
+| URL normally follow this pattern:
+|
+|	example.com/class/method/id/
+|
+| In some instances, however, you may want to remap this relationship
+| so that a different class/function is called than the one
+| corresponding to the URL.
+|
+| Please see the user guide for complete details:
+|
+|	http://codeigniter.com/user_guide/general/routing.html
+|
+| -------------------------------------------------------------------------
+| RESERVED ROUTES
+| -------------------------------------------------------------------------
+|
+| There area two reserved routes:
+|
+|	$route['default_controller'] = 'welcome';
+|
+| This route indicates which controller class should be loaded if the
+| URI contains no data. In the above example, the "welcome" class
+| would be loaded.
+|
+|	$route['404_override'] = 'errors/page_missing';
+|
+| This route will tell the Router what URI segments to use if those provided
+| in the URL cannot be matched to a valid route.
+|
+*/
+
+$route['default_controller'] = "front/index/dashboard";
+$route['404_override'] = '';
+
+// Base URL
+
+$base_url = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+
+// Dynamic Route Path
+
+$pos = strpos($base_url,"admin");
+
+if($pos == false) {
+	$config['base_url'] = $base_url;	
+	$flag = '1';
+	
+	if(!empty($_SERVER['ORIG_PATH_INFO'])){
+		$expo1 = explode("/",$_SERVER['ORIG_PATH_INFO']);
+	}elseif(!empty($_SERVER['PATH_INFO'])){
+		$expo1 = explode("/",$_SERVER['PATH_INFO']);
+	}else{
+		$expo1 = explode("/",$_SERVER['REQUEST_URI']);
+	}
+
+	$conntrol = !empty($expo1['1'])?$expo1['1']:'';
+} else {
+	$expo1 = explode("admin/",$base_url);
+	$config['base_url'] = $expo1[0];	
+	
+	$expp = !empty($expo1[1])?$expo1[1]:'';
+	
+	$expo = explode("/",$expp);
+	$conntrol = !empty($expo['0'])?$expo['0']:'';
+	
+	$flag = '2';
+}
+	
+	
+	/*DELETE ROUTE PATH*/
+	$route['admin/contact_masters/delete_email_record/(:num)'] = 'admin/contact_masters/contact_masters_control/delete_email_record';
+	$route['admin/contact_masters/delete_phone_record/(:num)'] = 'admin/contact_masters/contact_masters_control/delete_phone_record';
+	$route['admin/contact_masters/delete_address_record/(:num)'] = 'admin/contact_masters/contact_masters_control/delete_address_record';
+	$route['admin/contact_masters/delete_website_record/(:num)'] = 'admin/contact_masters/contact_masters_control/delete_website_record';
+	$route['admin/contact_masters/delete_status_record/(:num)'] = 'admin/contact_masters/contact_masters_control/delete_status_record';
+	$route['admin/contact_masters/delete_profile_record/(:num)'] = 'admin/contact_masters/contact_masters_control/delete_profile_record';
+	$route['admin/contact_masters/delete_contact_record/(:num)'] = 'admin/contact_masters/contact_masters_control/delete_contact_record';
+	$route['admin/contact_masters/delete_document_record/(:num)'] = 'admin/contact_masters/contact_masters_control/delete_document_record';
+	$route['admin/contact_masters/delete_source_record/(:num)'] = 'admin/contact_masters/contact_masters_control/delete_source_record';
+	$route['admin/contact_masters/delete_disposition_record/(:num)'] = 'admin/contact_masters/contact_masters_control/delete_disposition_record';
+	
+	$route['admin/contacts/delete_email_trans_record/(:num)'] = 'admin/contacts/contacts_control/delete_email_trans_record';
+	$route['admin/contacts/delete_phone_trans_record/(:num)'] = 'admin/contacts/contacts_control/delete_phone_trans_record';
+	$route['admin/contacts/delete_address_trans_record/(:num)'] = 'admin/contacts/contacts_control/delete_address_trans_record';
+	$route['admin/contacts/delete_website_trans_record/(:num)'] = 'admin/contacts/contacts_control/delete_website_trans_record';
+	$route['admin/contacts/delete_social_trans_record/(:num)'] = 'admin/contacts/contacts_control/delete_social_trans_record';
+	$route['admin/contacts/delete_tag_trans_record/(:num)'] = 'admin/contacts/contacts_control/delete_tag_trans_record';
+	$route['admin/contacts/delete_communication_trans_record/(:num)'] = 'admin/contacts/contacts_control/delete_communication_trans_record';
+	$route['admin/contacts/delete_document_trans_record/(:num)'] = 'admin/contacts/contacts_control/delete_document_trans_record';
+	$route['admin/contacts/upload_document'] = 'admin/contacts/contacts_control/upload_document';
+	$route['admin/contacts/update_data_ajax'] = 'admin/contacts/contacts_control/update_data_ajax';
+	$route['admin/contacts/get_doc_trans_data'] = 'admin/contacts/contacts_control/get_doc_trans_data';
+	$route['admin/contacts/merge_duplicate_contacts'] = 'admin/contacts/contacts_control/merge_duplicate_contacts';
+	$route['admin/contacts/delete_last_import/(:num)'] = 'admin/contacts/contacts_control/delete_last_import';
+	$route['admin/contacts/merge_search_contacts'] = 'admin/contacts/contacts_control/merge_search_contacts';
+	$route['admin/contacts/get_merge_contact_data_ajax'] = 'admin/contacts/contacts_control/get_merge_contact_data_ajax';
+	$route['admin/contacts/insert_merge_data'] = 'admin/contacts/contacts_control/insert_merge_data';
+	$route['admin/interaction/add_record'] = 'admin/interaction/interaction_control/add_record';
+	$route['admin/interaction/insert_data'] = 'admin/interaction/interaction_control/insert_data';
+	
+	// Generale Configuration
+	$route['admin/general_configuration/delete_user_record/(:num)'] = 'admin/general_configuration/general_configuration_control/delete_user_record';
+	
+	$route['admin/interaction_plans/search_contact_ajax'] = 'admin/interaction_plans/interaction_plans_control/search_contact_ajax';
+	$route['admin/interaction_plans/search_contact_ajax/(:num)'] = 'admin/interaction_plans/interaction_plans_control/search_contact_ajax';
+	
+	//use management
+	
+	$route['admin/user_management/ajax_delete_all'] = 'admin/user_management/user_management_control/ajax_delete_all';
+	
+	
+	$route['admin/user_management/delete_email_trans_record/(:num)'] = 'admin/user_management/user_management_control/delete_email_trans_record';
+	
+	$route['admin/user_management/delete_phone_trans_record/(:num)'] = 'admin/user_management/user_management_control/delete_phone_trans_record';
+	$route['admin/user_management/delete_address_trans_record/(:num)'] = 'admin/user_management/user_management_control/delete_address_trans_record';
+	$route['admin/user_management/delete_website_trans_record/(:num)'] = 'admin/user_management/user_management_control/delete_website_trans_record';
+	$route['admin/user_management/delete_social_trans_record/(:num)'] = 'admin/user_management/user_management_control/delete_social_trans_record';
+	$route['admin/user_management/delete_tag_trans_record/(:num)'] = 'admin/user_management/user_management_control/delete_tag_trans_record';
+	$route['admin/user_management/delete_communication_trans_record/(:num)'] = 'admin/user_management/user_management_control/delete_communication_trans_record';
+	$route['admin/user_management/delete_document_trans_record/(:num)'] = 'admin/user_management/user_management_control/delete_document_trans_record';
+	$route['admin/user_management/upload_document'] = 'admin/user_management/user_management_control/upload_document';
+	$route['admin/user_management/update_data_ajax'] = 'admin/user_management/user_management_control/update_data_ajax';
+	$route['admin/user_management/get_doc_trans_data'] = 'admin/user_management/user_management_control/get_doc_trans_data';
+	$route['admin/user_management/delete_assign_record'] = 'admin/user_management/user_management_control/delete_assign_record';
+	$route['admin/user_management/assign_contact'] = 'admin/user_management/user_management_control/assign_contact';
+	
+	
+	
+	$route['admin/'.$conntrol.'/add_record/(:num)'] = 'admin/'.$conntrol.'/'.$conntrol.'_control/add_record';
+//	$route['admin/'.$conntrol.'/add_record/(:num)'] = 'admin/'.$conntrol.'/'.$conntrol.'_control/add_record';
+	$route['admin/'.$conntrol.'/(:num)'] = 'admin/'.$conntrol.'/'.$conntrol.'_control/';
+	$route['admin/'.$conntrol.'/delete_record/(:num)/(:num)'] = 'admin/'.$conntrol.'/'.$conntrol.'_control/delete_record';
+
+if($flag==2){
+	$route['admin/'.$conntrol] = "admin/".$conntrol."/".$conntrol."_control";
+	
+	$route['admin/'.$conntrol.'/add_record'] = 'admin/'.$conntrol.'/'.$conntrol.'_control/add_record';
+	$route['admin/'.$conntrol.'/insert_data'] = 'admin/'.$conntrol.'/'.$conntrol.'_control/insert_data';
+	$route['admin/'.$conntrol.'/edit_record/(:num)'] = 'admin/'.$conntrol.'/'.$conntrol.'_control/edit_record';
+	$route['admin/'.$conntrol.'/edit_record/(:num)/(:num)'] = 'admin/'.$conntrol.'/'.$conntrol.'_control/edit_record';
+	$route['admin/'.$conntrol.'/view_record/(:num)'] = 'admin/'.$conntrol.'/'.$conntrol.'_control/view_record';
+	$route['admin/'.$conntrol.'/update_data'] = 'admin/'.$conntrol.'/'.$conntrol.'_control/update_data';
+	$route['admin/'.$conntrol.'/delete_record/(:num)'] = 'admin/'.$conntrol.'/'.$conntrol.'_control/delete_record';
+	$route['admin/'.$conntrol.'/tipslist/(:num)'] = 'admin/'.$conntrol.'/'.$conntrol.'_control';
+	$route['admin/'.$conntrol.'/(:num)'] = 'admin/'.$conntrol.'/'.$conntrol.'_control';
+	$route['admin/'.$conntrol.'/msg/(:any)'] = 'admin/'.$conntrol.'/'.$conntrol.'_control';
+	$route['admin/'.$conntrol.'/unpublish_record/(:num)'] = 'admin/'.$conntrol.'/'.$conntrol.'_control/unpublish_record';
+	$route['admin/'.$conntrol.'/publish_record/(:num)'] = 'admin/'.$conntrol.'/'.$conntrol.'_control/publish_record';
+	$route['admin/'.$conntrol.'/delete_icon'] = 'admin/'.$conntrol.'/'.$conntrol.'_control/delete_icon';
+	$route['admin/'.$conntrol.'/upload_image'] = 'admin/'.$conntrol.'/'.$conntrol.'_control/upload_image';
+	$route['admin/'.$conntrol.'/delete_image'] = 'admin/'.$conntrol.'/'.$conntrol.'_control/delete_image';
+	$route['admin/'.$conntrol.'/send_invoice/(:num)'] = 'admin/'.$conntrol.'/'.$conntrol.'_control/send_invoice';
+        $route['admin/'.$conntrol.'/insert_plan_type'] = 'admin/'.$conntrol.'/'.$conntrol.'_control/insert_plan_type';
+        $route['admin/'.$conntrol.'/insert_status'] = 'admin/'.$conntrol.'/'.$conntrol.'_control/insert_status';
+        $route['admin/'.$conntrol.'/update_plan_type'] = 'admin/'.$conntrol.'/'.$conntrol.'_control/update_plan_type';
+        $route['admin/'.$conntrol.'/update_status'] = 'admin/'.$conntrol.'/'.$conntrol.'_control/update_status';
+        $route['admin/'.$conntrol.'/delete_plan_type_record/(:num)'] = 'admin/'.$conntrol.'/'.$conntrol.'_control/delete_plan_type_record';
+        $route['admin/'.$conntrol.'/delete_status_record/(:num)'] = 'admin/'.$conntrol.'/'.$conntrol.'_control/delete_status_record';
+	
+	$route['admin/'.$conntrol.'/(:any)'] = "admin/".$conntrol."/".$conntrol."_control";
+	
+
+}else{
+	$route[$conntrol] = 'front/'.$conntrol."/".$conntrol."_control"; 
+	$route[$conntrol.'/add_record'] = 'front/'.$conntrol.'/'.$conntrol."_control".'/add_record';
+	$route[$conntrol.'/insert_data'] = 'front/'.$conntrol.'/'.$conntrol."_control".'/insert_data';
+	$route[$conntrol.'/edit_record/(:num)'] = 'front/'.$conntrol.'/'.$conntrol."_control".'/edit_record';
+	$route[$conntrol.'/edit_record/(:any)'] = 'front/'.$conntrol.'/'.$conntrol."_control".'/edit_record';
+	$route[$conntrol.'/edit_record'] = 'front/'.$conntrol.'/'.$conntrol."_control".'/edit_record';
+	
+	$route[$conntrol.'/update_data'] = 'front/'.$conntrol.'/'.$conntrol."_control".'/update_data';
+	$route[$conntrol.'/delete_record/(:num)'] = 'front/'.$conntrol.'/'.$conntrol."_control".'/delete_record';
+	$route[$conntrol.'/(:num)'] = 'front/'.$conntrol.'/'.$conntrol."_control";
+ 	$route[$conntrol.'/msg/(:any)'] = 'front/'.$conntrol.'/'.$conntrol."_control"; 
+	
+	$route[$conntrol.'/unpublish_record/(:num)'] = 'front/'.$conntrol.'/'.$conntrol.'_control/unpublish_record';
+	$route[$conntrol.'/publish_record/(:num)'] = 'front/'.$conntrol.'/'.$conntrol.'_control/publish_record';
+	$route[$conntrol.'/getLatLong'] = 'front/'.$conntrol.'/'.$conntrol.'_control/getLatLong';
+	$route[$conntrol.'/upgrade_account/(:any)'] = 'front/'.$conntrol.'/'.$conntrol.'_control/upgrade_account';
+	$route[$conntrol.'/update_account'] = 'front/'.$conntrol.'/'.$conntrol.'_control/update_account';
+	$route[$conntrol.'/upgradethankyou'] = 'front/'.$conntrol.'/'.$conntrol.'_control/upgradethankyou';
+	$route[$conntrol.'/view_record/(:num)'] = 'front/'.$conntrol.'/'.$conntrol."_control".'/view_record';
+	$route[$conntrol.'/view_record/(:any)'] = 'front/'.$conntrol.'/'.$conntrol."_control".'/view_record';
+	$route[$conntrol.'/delete_image'] = 'front/'.$conntrol.'/'.$conntrol."_control".'/delete_image';
+	$route[$conntrol.'/checkuser'] = 'front/'.$conntrol.'/'.$conntrol."_control".'/checkuser';
+}
+// End
+
+//For Admin Redirection 
+$route['index'] = "index/index";
+$route['index/msg/(:any)'] ="index/index";
+
+$route['admin'] = "admin/login/login";
+$route['admin/login'] = "admin/login/login";
+$route['admin/logout'] = "admin/login/logout";
+$route['admin/dashboard'] = "admin/index/dashboard";
+
+// Change Password of admin
+
+$route['admin/change_password_view'] = "admin/change_password/change_password_control";
+$route['admin/change_password'] = "admin/change_password/change_password_control/change_password";
+
+//For Admin Configuration Master
+$route['admin/configuration'] = "admin/configuration/configuration/index";
+$route['admin/add_configuration']  ="admin/configuration/configuration/add_configuration";
+$route['admin/configuration/insert_configuration']  ="admin/configuration/configuration/insert_configuration";
+$route['admin/edit_configuration/id/(:num)']  ="admin/configuration/configuration/edit_configuration";
+$route['admin/update_configuration']  ="admin/configuration/configuration/update_configuration";
+$route['admin/delete_configuration/id/(:num)']  ="admin/configuration/configuration/delete_configuration";
+$route['admin/configuration/index/(:num)'] = "admin/configuration/configuration/index";
+$route['admin/configuration/index'] = "admin/configuration/configuration/index";
+$route['admin/configuration/(:num)'] = "admin/configuration/configuration/index";
+$route['admin/configuration/msg/(:any)'] = "admin/configuration/configuration/index";
+$route['admin/configuration/msg'] = "admin/configuration/configuration/index";
+
+//For Admin Configuration Value
+$route['admin/configvalue'] = "admin/configuration/configuration/configvaluelist";
+$route['admin/configvalue/add_configvalue']  ="admin/configuration/configuration/add_configvalue";
+$route['admin/configvalue/insert_configvalue']  ="admin/configuration/configuration/insert_configvalue";
+$route['admin/configvalue/edit_configvalue/(:num)']  ="admin/configuration/configuration/edit_configvalue";
+$route['admin/configvalue/update_configvalue']  ="admin/configuration/configuration/update_configvalue";
+$route['admin/configvalue/delete_configvalue/(:num)']  ="admin/configuration/configuration/delete_configvalue";
+$route['admin/configvalue/index/(:num)'] = "admin/configuration/configuration/configvaluelist";
+$route['admin/configvalue/index'] = "admin/configuration/configuration/configvaluelist";
+$route['admin/configvalue/(:num)'] = "admin/configuration/configuration/configvaluelist";
+$route['admin/configvalue/msg/(:any)'] = "admin/configuration/configuration/configvaluelist";
+
+
+
+
+
+	/*INSERT ROUTE PATH*/
+	$route['admin/contact_masters/insert_email'] = 'admin/contact_masters/contact_masters_control/insert_email';
+	$route['admin/contact_masters/insert_phone'] = 'admin/contact_masters/contact_masters_control/insert_phone';
+	$route['admin/contact_masters/insert_address'] = 'admin/contact_masters/contact_masters_control/insert_address';
+	$route['admin/contact_masters/insert_website'] = 'admin/contact_masters/contact_masters_control/insert_website';
+	$route['admin/contact_masters/insert_status'] = 'admin/contact_masters/contact_masters_control/insert_status';
+	$route['admin/contact_masters/insert_profile'] = 'admin/contact_masters/contact_masters_control/insert_profile';
+	$route['admin/contact_masters/insert_contact'] = 'admin/contact_masters/contact_masters_control/insert_contact';
+	$route['admin/contact_masters/insert_document'] = 'admin/contact_masters/contact_masters_control/insert_document';
+	$route['admin/contact_masters/insert_source'] = 'admin/contact_masters/contact_masters_control/insert_source';
+	$route['admin/contact_masters/insert_disposition'] = 'admin/contact_masters/contact_masters_control/insert_disposition';
+	$route['admin/general_configuration/insert_user'] = 'admin/general_configuration/general_configuration_control/insert_user';
+	
+	/*UPDATE ROUTE PATH*/
+	$route['admin/contact_masters/update_email'] = 'admin/contact_masters/contact_masters_control/update_email';
+	$route['admin/contact_masters/update_phone'] = 'admin/contact_masters/contact_masters_control/update_phone';
+	$route['admin/contact_masters/update_address'] = 'admin/contact_masters/contact_masters_control/update_address';
+	$route['admin/contact_masters/update_website'] = 'admin/contact_masters/contact_masters_control/update_website';
+	$route['admin/contact_masters/update_status'] = 'admin/contact_masters/contact_masters_control/update_status';
+	$route['admin/contact_masters/update_profile'] = 'admin/contact_masters/contact_masters_control/update_profile';
+	$route['admin/contact_masters/update_contact'] = 'admin/contact_masters/contact_masters_control/update_contact';
+	$route['admin/contact_masters/update_document'] = 'admin/contact_masters/contact_masters_control/update_document';
+	$route['admin/contact_masters/update_source'] = 'admin/contact_masters/contact_masters_control/update_source';
+	$route['admin/contact_masters/update_disposition'] = 'admin/contact_masters/contact_masters_control/update_disposition';
+	$route['admin/general_configuration/update_user'] = 'admin/general_configuration/general_configuration_control/update_user';
+	
+	/* For Admin Contact Export */
+	$route['admin/contacts/export'] = 'admin/contacts/contacts_control/export';
+	$route['admin/contacts/import'] = 'admin/contacts/contacts_control/import';
+	$route['admin/contacts/upload_csv'] = 'admin/contacts/contacts_control/upload_csv';
+	$route['admin/contacts/insert_contact_csv'] = 'admin/contacts/contacts_control/insert_contact_csv';
+	$route['admin/contacts/insert_contact'] = 'admin/contacts/contacts_control/insert_contact';
+	$route['admin/contacts/get_filed_list'] = 'admin/contacts/contacts_control/get_filed_list';
+	$route['admin/contacts/ajax_delete_all'] = 'admin/contacts/contacts_control/ajax_delete_all';
+	$route['admin/contacts/assign_contact'] = 'admin/contacts/contacts_control/assign_contact';
+	
+	$route['admin/interaction_plans/ajax_delete_all'] = 'admin/interaction_plans/interaction_plans_control/ajax_delete_all';
+	$route['admin/interaction/ajax_delete_all'] = 'admin/interaction/interaction_control/ajax_delete_all';
+	$route['admin/interaction_plans/add_contacts_to_interaction_plan'] = 'admin/interaction_plans/interaction_plans_control/add_contacts_to_interaction_plan';
+	
+	$route['admin/interaction_plans/view_contacts_of_interaction_plan'] = 'admin/interaction_plans/interaction_plans_control/view_contacts_of_interaction_plan';
+	
+	$route['admin/team_assignment/delete_record'] = 'admin/'.$conntrol.'/'.$conntrol.'_control/delete_record';

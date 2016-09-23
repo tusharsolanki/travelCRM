@@ -1,0 +1,64 @@
+body{
+    border: 1px solid blue;
+    /*font-family:Calibri, Century;*/
+    font-family:Calibri;
+    font-size:14px!important;
+}
+table {
+    width:100%;
+}
+td{
+    text-align:justify;
+}
+
+h2,h3{
+    font-family:"Century Gothic"!important;
+}
+.fontcolor { color:#0489B1; }
+.fontbold { font-weight:bold; }
+.txtalign_left { text-align: left; }
+.txtalign_right { text-align: right; }
+.txtalign_center { text-align: center; }
+.txti { font-style: italic; font-weight: bold; }
+.valign_bottom { vertical-align: bottom; }
+.hrline { color:#0489B1; text-align:right; height:4px; width:65%; }
+.hrline1 { color:#0489B1; text-align:right; height:4px; width:70%; }
+.hrline2 { color:#0489B1; text-align:left; height:4px; }
+.tdheight { height:35px; }
+.tdheight2 { height:25px; }
+.tdwidth { width:20px; }
+.tdheight1 { height:100px; }
+.techtable { border:1px solid black;text-align:center;background-color:#D8D8D8; width: 100%;text-align: center; }
+.techtd { border:1px solid gray; vertical-align: middle; text-align: center; }
+.techtd1 { color:#0489B1; text-align:left;height:35px; }
+.techtr { background-color:#58ACFA; color:#ffffff; }
+.diveepg3 { margin-top:100px;margin-left:50px;margin-right:50px;border: 0px solid #000; text-align:center; }
+.cmapg5 { text-align:center; border:0px solid; }
+.cmapg5td { background-color:#A4A4A4; color:#0489B1; height:35px;text-align: center; }
+.cmapg5td1 { background-color:#D8D8D8;text-align: center; }
+.cmapg5td2 { text-align:center;font-size: 0.7em !important; }
+.fntsize { font-size: 14px !important; }
+.napg11table { border:1px solid;text-align:center;}
+.napg11td { text-align:center;height:35px; color:#FFFFFF;border:1px solid black; vertical-align: middle;}
+.napg11tr { background-color:#000;}
+.natbl { background-color:#A4A4A4; height:35px; text-align:center; font-weight:bold;border:1px solid black; }
+.natbl1 { background-color:#D8D8D8; text-align:center;border:1px solid black; }
+.fntgreen { color:green !important; }
+.fntred { color:red !important; }
+.finalpg { border:2px solid black;background-color:#E6E6E6 }
+.finalpg1 {text-align:left;color:#0489B1;height:40px}
+.finalpg2 {text-align:center;;height:40px;}
+.fsz {font-size:large;}
+.inettbl { border:2px solid black; background-color:#E6E6E6;float:left;margin-top:10px;margin-bottom:10px;}
+.inetitbl {border:3px solid black; background-color:#0489B1;color:#ffffff; }
+.footer {padding-bottom:10px;text-align:left;}
+.footer1 {padding-bottom:10px;text-align:right;}
+.tblwidth {width:70%;}
+
+.width_set{max-width:250px;}
+.pic{position:relative; z-index:11; }
+.address_format{position:absolute; z-index:9999; top:705px; left:525px; width:230px !important; }
+.name_heading {width:230px; margin-left:5px; margin-right:5px; color:#0489B1; font-size:16px; font-weight:bold; text-align:center; margin-bottom:10px;}
+.formting_text {width:230px; margin-left:5px; margin-right:5px; font-size:15px;padding:1px; text-align:center; margin-bottom:10px;}
+.home_logo {width:230px; font-size:15px; text-align:center; margin-top:50px;padding:10px;}
+.address_city {width:230px; margin-left:5px; margin-right:5px; font-size:15px;  padding:1px; text-align:center;margin-bottom:10px;}

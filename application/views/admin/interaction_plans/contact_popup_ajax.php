@@ -1,0 +1,105 @@
+<?php if(isset($sortby) && $sortby == 'asc'){ $sorttypepass = 'desc';}else{$sorttypepass = 'asc';}?>
+<table aria-describedby="DataTables_Table_0_info" id="DataTables_Table_0" class="table table-striped table-bordered table-hover table-highlight table-checkable dataTable-helper dataTable datatable-columnfilter innerscrolltable">
+<thead class="select_record_table select_contacts_box_scroll">
+  <tr role="row">
+	<th width="10%" role="columnheader" class="checkbox-column sorting_disabled"> <div class="">
+		<input type="checkbox" class="" id="selectall">
+	  </div></th>
+      <th width="30%" data-direction="desc" data-sortable="true" data-filterable="true" <?php if(isset($sortfield) && $sortfield == 'first_name'){if($sortby == 'asc'){echo "class = 'sorting_desc'";}else{echo "class = 'sorting_asc'";}} ?> role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-sort="descending" aria-label="Rendering engine: activate to sort column ascending"><a href="javascript:void(0);" onclick="applysortfilte_contact2('first_name','<?php echo $sorttypepass;?>')">Name</a></th>
+      
+      <th width="30%" data-direction="desc" data-sortable="true" data-filterable="true" <?php if(isset($sortfield) && $sortfield == 'company_name'){if($sortby == 'asc'){echo "class = 'sorting_desc'";}else{echo "class = 'sorting_asc'";}} ?> role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-sort="descending" aria-label="Rendering engine: activate to sort column ascending"><a href="javascript:void(0);" onclick="applysortfilte_contact2('company_name','<?php echo $sorttypepass;?>')">Company Name</a></th>
+	<!--<th width="31%" >Name</th>
+	<th width="30%" >Company Name</th>
+	<th width="31%" >Email</th>-->
+    <th width="30%" data-direction="desc" data-sortable="true" data-filterable="true" <?php if(isset($sortfield) && $sortfield == 'email_address'){if($sortby == 'asc'){echo "class = 'sorting_desc'";}else{echo "class = 'sorting_asc'";}} ?> role="columnheader" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-sort="descending" aria-label="Rendering engine: activate to sort column ascending"><a href="javascript:void(0);" onclick="applysortfilte_contact2('email_address','<?php echo $sorttypepass;?>')">Email</a></th>
+    <input type="hidden" id="sortfield3" name="sortfield3" value="<?php if(isset($sortfield)) echo $sortfield;?>" />
+	<input type="hidden" id="sortby3" name="sortby3" value="<?php if(isset($sortby)) echo $sortby;?>" />
+  </tr>
+</thead>
+<tbody aria-relevant="all" aria-live="polite" role="alert" class="select_record_table select_contacts_box record_table">
+
+<?php 
+if(!empty($contact_list)){
+	$i=0;
+	foreach($contact_list as $row){ ?>
+  <tr class="add_contact_to_array <?php if($i%2==0){echo 'odd';}else{echo 'even';}$i++;?>" data-id="<?=!empty($row['id'])?$row['id']:'';?>">
+	<td width="10%" class="checkbox-column "><div class="">
+		<input type="checkbox" class="mycheckbox2" value="<?=!empty($row['id'])?$row['id']:'';?>">
+	  </div></td>
+	<td width="31%" class="sorting_1"><?=!empty($row['contact_name'])?ucfirst(strtolower($row['contact_name'])):'';?></td>
+	<td width="30%" class="sorting_2"><?=!empty($row['company_name'])?ucfirst(strtolower($row['company_name'])):'';?></td>
+	<td width="31%" class="sorting_2"><?=!empty($row['email_address'])?$row['email_address']:'';?></td>
+  </tr>
+<?php } ?>
+<?php }else{ ?>
+	<tr class="record_smg">
+		<td class="record_smg" class="record_smg" colspan="4">No records Found.</td>
+	</tr>
+<?php } ?>
+
+</tbody>
+<!--<tfoot>
+<tr>
+	<td colspan="4" id="common_tb">
+		<?php 			 
+			if(isset($pagination))
+			{
+				echo $pagination;
+			}
+			?>
+	</td>
+</tr>
+
+</tfoot>-->
+</table>
+<div class="row dt-rb" id="contact_common_tab">
+          <div class="col-sm-3">
+		 
+		  <div class="dataTables_paginate paging_bootstrap float-right">
+		  
+		  
+		  <div id="DataTables_Table_0_length" class="dataTables_length row pagignation_margin_right">
+
+            <label>
+			
+            <select name="DataTables_Table_0_length" size="1" aria-controls="DataTables_Table_0" onchange="changepages3();" id="perpage3" class="small_per_page_popup">
+             <option <?php if(empty($perpage)){ echo 'selected="selected"';}?> value="0"><?=$this->lang->line('label_communications_per_page')?></option>
+              <option <?php if(!empty($perpage) && $perpage == 10){ echo 'selected="selected"';}?> value="10">10</option>
+              <option <?php if(!empty($perpage) && $perpage == 25){ echo 'selected="selected"';}?> value="25">25</option>
+              <option <?php if(!empty($perpage) && $perpage == 50){ echo 'selected="selected"';}?> value="50">50</option>
+              <option <?php if(!empty($perpage) && $perpage == 100){ echo 'selected="selected"';}?> value="100">100</option>
+            </select>
+            </label>
+           </div>
+		   </div>
+		   </div>
+           <div class="col-sm-9">
+           <?php if(isset($pagination)){echo $pagination;}?>
+           </div>
+         </div>
+<script>
+$('.record_table').on('click', 'tr', function() {
+    $(this).find('td:first :checkbox').trigger('click');
+	var contact_id = $(':checkbox', this).val();
+	checkbox_checked(contact_id);
+	
+})
+.on('click', '.mycheckbox2', function(e) {
+    e.stopPropagation();
+    $(this).closest('tr').toggleClass('selected', this.checked);
+	checkbox_checked(this.value);
+});
+
+function remove_selection_to()
+{
+	var cnt = popupcontactlist.length;
+	for(i=0;i<popupcontactlist.length;i++)
+	{
+		$('.mycheckbox2:checkbox[value='+popupcontactlist[i]+']').attr('checked',false);
+	}
+	$('#selectall').attr('checked',false);
+	popupcontactlist = Array();
+	$('#count_selected_to').text(popupcontactlist.length + ' Record Selected');
+	arraydatacount = 0;
+}
+</script>
